@@ -63,6 +63,7 @@
         <module>easybatch-msexcel</module>
         <module>easybatch-univocity</module>
         <module>easybatch-yaml</module>
+        <module>easybatch-kafka</module>
     </modules>
 
     <!--This will build the module only if the detected jdk start with "1.8"-->
