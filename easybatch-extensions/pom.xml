@@ -75,6 +75,7 @@
             </activation>
             <modules>
                 <module>easybatch-stream</module>
+                <module>easybatch-kafka</module>
             </modules>
         </profile>
     </profiles>

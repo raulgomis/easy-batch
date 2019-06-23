@@ -8,16 +8,21 @@ import org.easybatch.core.record.Header;
 import org.easybatch.core.record.Record;
 import org.easybatch.core.record.StringRecord;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class KafkaReader implements RecordReader {
+public class KafkaRecordReader implements RecordReader {
+
+    private static final long DEFAULT_POLL_TIMEOUT = 5L;
 
     private final LinkedList<ConsumerRecord<String, String>> buffer;
-    private Consumer<String, String> consumer;
-    private final KafkaConsumerConnectionFactory factory;
+    private final ConnectionFactory<Consumer<String, String>> factory;
 
-    public KafkaReader(final KafkaConsumerConnectionFactory factory) {
+    private Duration pollTimeout = Duration.ofSeconds(DEFAULT_POLL_TIMEOUT);
+    private Consumer<String, String> consumer;
+
+    public KafkaRecordReader(final KafkaConsumerConnectionFactory factory) {
         this.buffer = new LinkedList<>();
         this.factory = factory;
     }
@@ -26,9 +31,9 @@ public class KafkaReader implements RecordReader {
         consumer = factory.createConnection();
     }
 
-    public Record readRecord() throws Exception {
+    public Record readRecord() {
         if(buffer.isEmpty()) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
+            final ConsumerRecords<String, String> records = consumer.poll(pollTimeout);
             if(records.isEmpty()) {
                 return null;
             }
@@ -37,11 +42,16 @@ public class KafkaReader implements RecordReader {
             }
         }
 
-        ConsumerRecord<String,String> record = buffer.poll();
+        final ConsumerRecord<String,String> record = buffer.poll();
+
+        if(record == null) {
+            return null;
+        }
+
         return new StringRecord(new Header(record.offset(), record.topic(), new Date()), record.value());
     }
 
-    public void close() throws Exception {
+    public void close() {
         if(consumer != null) {
             consumer.close();
         }

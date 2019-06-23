@@ -6,13 +6,13 @@ import org.easybatch.core.record.Batch;
 import org.easybatch.core.record.Record;
 import org.easybatch.core.writer.RecordWriter;
 
-public class KafkaWriter implements RecordWriter {
+public class KafkaRecordWriter implements RecordWriter {
 
     private Producer<String, String> producer;
     private final String topic;
-    private final KafkaProducerConnectionFactory factory;
+    private final ConnectionFactory<Producer<String, String>> factory;
 
-    public KafkaWriter(final KafkaProducerConnectionFactory factory, final String topic) {
+    public KafkaRecordWriter(final KafkaProducerConnectionFactory factory, final String topic) {
         this.factory = factory;
         this.topic = topic;
     }
@@ -21,14 +21,14 @@ public class KafkaWriter implements RecordWriter {
         producer = factory.createConnection();
     }
 
-    public void writeRecords(Batch batch) throws Exception {
+    public void writeRecords(Batch batch) {
         for (Record record : batch) {
             String message = (String) record.getPayload();
-            producer.send(new ProducerRecord<String, String>(topic, message));
+            producer.send(new ProducerRecord<>(topic, message));
         }
     }
 
-    public void close() throws Exception {
+    public void close() {
         if(producer != null) {
             producer.close();
         }
