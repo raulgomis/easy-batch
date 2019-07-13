@@ -15,7 +15,7 @@
     <url>http://www.easybatch.org</url>
 
     <properties>
-        <kafka-clients.version>2.0.1</kafka-clients.version>
+        <kafka-clients.version>2.1.1</kafka-clients.version>
         <java.version>1.8</java.version>
     </properties>
 
