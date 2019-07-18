@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jmh.version>1.19</jmh.version>
-        <random-beans.version>3.7.0</random-beans.version>
+        <random-beans.version>3.8.0</random-beans.version>
         <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
     </properties>
