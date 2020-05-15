@@ -20,7 +20,7 @@
         <system-rules.version>1.19.0</system-rules.version>
         <hsqldb.version>2.3.6</hsqldb.version>
         <hibernate.version>4.3.11.Final</hibernate.version>
-        <hibernate-validator.version>5.4.3.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.0.18.Final</hibernate-validator.version>
 
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
