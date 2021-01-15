@@ -15,7 +15,7 @@
     <url>https://github.com/j-easy/easy-batch</url>
 
     <properties>
-        <poi.version>3.14</poi.version>
+        <poi.version>4.0.0</poi.version>
     </properties>
 
     <developers>
